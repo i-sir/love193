@@ -31,11 +31,11 @@ class MemberMatchmakerController extends AdminBaseController
 {
 
 
-//    public function initialize()
-//    {
-//        //红娘管理
-//        parent::initialize();
-//    }
+    //    public function initialize()
+    //    {
+    //        //红娘管理
+    //        parent::initialize();
+    //    }
 
     /**
      * 首页基础信息
@@ -53,6 +53,11 @@ class MemberMatchmakerController extends AdminBaseController
     {
         //是否红娘后台
         if ($this->admin_info['matchmaker_id']) $this->assign('admin_matchmaker_id', $this->admin_info['matchmaker_id']);
+
+
+
+        $MemberMatchmakerClassInit  = new \init\MemberMatchmakerClassInit();//红娘分类    (ps:InitController)
+        $this->assign('class_list', $MemberMatchmakerClassInit->get_list());
     }
 
     /**

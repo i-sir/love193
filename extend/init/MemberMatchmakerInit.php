@@ -47,11 +47,17 @@ class MemberMatchmakerInit extends Base
      */
     public function common_item($item = [], $params = [])
     {
+        $MemberMatchmakerClassModel = new \initmodel\MemberMatchmakerClassModel(); //红娘分类   (ps:InitModel)
+
         //处理转文字
         $item['status_name']    = $this->status[$item['status']];//状态
         $item['is_manage_name'] = $this->is_manage[$item['is_manage']];//管理
 
         if ($item['avatar']) $item['avatar'] = cmf_get_asset_url($item['avatar']);
+
+
+        $item['class_name'] = $MemberMatchmakerClassModel->where('id', '=', $item['class_id'])->value('name');
+
 
         //接口类型
         if ($params['InterfaceType']) $this->InterfaceType = $params['InterfaceType'];

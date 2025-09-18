@@ -56,6 +56,7 @@
                     <th style="width: 60px">排序</th>
                 </if>
                 <th style="width: 60px">ID</th>
+                <th style="width: 60px">分类</th>
                 <th style="width: 60px">基础信息</th>
                 <th style="width: 60px">手机号</th>
                 <th style="width: 60px">微信二维码</th>
@@ -79,6 +80,7 @@
                         </td>
                     </if>
                     <td>{$vo.id}</td>
+                    <td>{$vo.class_name}</td>
 
                     <td>
                         <if condition="!empty($vo['avatar'])">

@@ -57,6 +57,63 @@ class MemberMatchmakerController extends AuthController
 
 
     /**
+     * 分类列表
+     * @OA\Post(
+     *     tags={"红娘管理"},
+     *     path="/wxapp/member_matchmaker/find_class_list",
+     *
+     *
+     *
+     *     @OA\Parameter(
+     *         name="keyword",
+     *         in="query",
+     *         description="(选填)关键字搜索",
+     *         required=false,
+     *         @OA\Schema(
+     *             type="string",
+     *         )
+     *     ),
+     *
+     *
+     *
+     *
+     *     @OA\Response(response="200", description="An example resource"),
+     *     @OA\Response(response="default", description="An example resource")
+     * )
+     *
+     *
+     *   test_environment: http://love193.ikun:9090/api/wxapp/member_matchmaker/find_class_list
+     *   official_environment: https://xcxkf193.aubye.com/api/wxapp/member_matchmaker/find_class_list
+     *   api:  /wxapp/member_matchmaker/find_class_list
+     *   remark_name: 分类列表
+     *
+     */
+    public function find_class_list()
+    {
+        $MemberMatchmakerClassInit  = new \init\MemberMatchmakerClassInit();//红娘分类   (ps:InitController)
+        $MemberMatchmakerClassModel = new \initmodel\MemberMatchmakerClassModel(); //红娘分类   (ps:InitModel)
+
+        /** 获取参数 **/
+        $params            = $this->request->param();
+        $params["user_id"] = $this->user_id;
+
+        /** 查询条件 **/
+        $where   = [];
+        $where[] = ['id', '>', 0];
+        if ($params["keyword"]) $where[] = ["name", "like", "%{$params['keyword']}%"];
+        if ($params["status"]) $where[] = ["status", "=", $params["status"]];
+
+        /** 查询数据 **/
+        $params["InterfaceType"] = "api";//接口类型
+        $params["DataFormat"]    = "list";//数据格式,find详情,list列表
+        $result                  = $MemberMatchmakerClassInit->get_list($where, $params);
+        if (empty($result)) $this->error("暂无信息!");
+
+        $this->success("请求成功!", $result);
+    }
+
+
+    /**
      * 红娘管理 列表
      * @OA\Post(
      *     tags={"红娘管理"},
@@ -123,6 +180,7 @@ class MemberMatchmakerController extends AuthController
         $where[] = ['is_manage', '=', 2];
         if ($params["keyword"]) $where[] = ["nickname|phone", "like", "%{$params['keyword']}%"];
         if ($params["status"]) $where[] = ["status", "=", $params["status"]];
+        if ($params["class_id"]) $where[] = ["class_id", "=", $params["class_id"]];
 
         //查询数据
         $params["InterfaceType"] = "api";//接口类型
@@ -250,7 +308,6 @@ class MemberMatchmakerController extends AuthController
     }
 
 
-
     /**
      * 红娘登录
      * @OA\Post(
@@ -342,7 +399,6 @@ class MemberMatchmakerController extends AuthController
 
         $this->success('登录成功', $findUserInfo);
     }
-
 
 
 }

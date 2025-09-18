@@ -49,7 +49,7 @@ class ChatController extends AuthController
     public function get_uid()
     {
         $this->checkAuth();
-        $MemberModel     = new \initmodel\MemberModel();//用户管理
+        $MemberModel           = new \initmodel\MemberModel();//用户管理
         $MemberMatchmakerModel = new \initmodel\MemberMatchmakerModel(); //红娘管理   (ps:InitModel)
 
 
@@ -59,7 +59,6 @@ class ChatController extends AuthController
 
         //系统名称
         $app_name = cmf_config('app_name');
-
 
 
         if (empty($this->user_info['uni_token'])) {
@@ -141,7 +140,7 @@ class ChatController extends AuthController
             'avatar'      => cmf_get_asset_url($this->user_info['avatar'] ?? $app_logo)
         ];
 
-        $res    = $this->getCurlData($url, $params);
+        $res = $this->getCurlData($url, $params);
         if (isset($res['errCode']) && $res['errCode'] === 0) {
             $this->success('更新成功');
         } else {

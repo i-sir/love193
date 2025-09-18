@@ -179,7 +179,7 @@ class MemberController extends AuthController
             $member_info['id'] = $MemberModel->strict(false)->insert([
                 'openid'      => $params['openid'],
                 'phone'       => $params['phone'],
-                'status'      => 2,//默认通过
+                //'status'      => 1,//不通过审核中
                 'vip_id'      => 1,//默认初级会员
                 'end_time'    => 4102415999,
                 'create_time' => time(),
@@ -615,6 +615,9 @@ class MemberController extends AuthController
         if ($params['education']) $map[] = ['education', '=', $params['education']];
         if ($params['is_index'] && empty($params['keyword_id'])) $map[] = ['is_index', '=', 1];
         if ($params['income']) $map[] = ['income', '=', $params['income']];
+        if ($params['domicile_province_code']) $map[] = ['domicile_province_code', '=', $params['domicile_province_code']];
+        if ($params['domicile_city_code']) $map[] = ['domicile_city_code', '=', $params['domicile_city_code']];
+        if ($params['domicile_county_code']) $map[] = ['domicile_county_code', '=', $params['domicile_county_code']];
         if ($params['birth']) $map[] = ['birth', 'like', "%{$params['birth']}"];
         if ($params['keyword']) $map[] = ['nickname|id', 'like', "%{$params['keyword']}"];
         //单身专区
