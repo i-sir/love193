@@ -631,7 +631,7 @@ class MemberController extends AuthController
 
 
         //性别取反
-        if ($this->user_info['identity_type'] == 'member') $map[] = ['gender', '<>', $this->user_info['gender']];
+        if ($params['gender']) $map[] = ['gender', '=', $params['gender']];
 
         //引荐人只查看自己下级  查看所有
         //if ($this->user_info['identity_type'] == 'recommend') $map[] = ['pid', '=', $this->user_id];

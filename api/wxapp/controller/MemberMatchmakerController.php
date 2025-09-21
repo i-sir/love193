@@ -169,9 +169,9 @@ class MemberMatchmakerController extends AuthController
 
 
         //普通用户白银会员才可以使用该功能
-        if ($this->user_info['identity_type'] == 'member' && $this->user_info['vip_id'] < 3) {
-            $this->error(['mas' => '身份不支持', 'code' => 200]);
-        }
+//        if ($this->user_info['identity_type'] == 'member' && $this->user_info['vip_id'] < 3) {
+//            $this->error(['mas' => '身份不支持', 'code' => 200]);
+//        }
 
 
         //查询条件
